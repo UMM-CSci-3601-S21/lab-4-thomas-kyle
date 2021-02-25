@@ -1,14 +1,3 @@
-!["Broken" badge to remind us to fix the URLs on the "real" badges](https://img.shields.io/badge/FIX_BADGES-Badges_below_need_to_be_updated-red)
-
-> **Make sure you update the links for the badges below so they point
-> to _your_ project and not the "starter" copy. You also need to make
-> sure that analysis checks are being run on all pull requests.** See
-> [`CODE-QUALITY-CHECKS.md`](CODE-QUALITY-CHECKS.md)
-> for info on how to do that.
->
-> Feel free to remove the badge above and this text when you've
-> dealt with that.
-
 # CSCI 3601 Lab 4 - MongoDB <!-- omit in toc -->
 
 [![Server Build Status](../../actions/workflows/server.yml/badge.svg)](../../actions/workflows/server.yml)
