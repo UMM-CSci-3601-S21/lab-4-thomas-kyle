@@ -97,7 +97,7 @@ public class MongoSpecTD {
 
   @Test
   public void shouldBeTwoTrue() {
-    FindIterable<Document> documents = todoDocuments.find(gt("status", true));
+    FindIterable<Document> documents = todoDocuments.find(eq("status", true));
     int numberOfTodos = countTodos(documents);
     assertEquals(2, numberOfTodos, "Should be 2 todos that are true");
   }
@@ -105,11 +105,11 @@ public class MongoSpecTD {
   @Test
   public void shouldBeHomeworkAndFalse() {
     FindIterable<Document> documents
-      = todoDocuments.find(and(gt("category", "chores"),
+      = todoDocuments.find(and(eq("category", "chores"),
       eq("status", false)));
     List<Document> docs = intoList(documents);
     assertEquals(1, docs.size(), "Should be 1");
-    assertEquals("Ricky", docs.get(0).get("name"), "First should be Ricky");
+    assertEquals("Ricky", docs.get(0).get("owner"), "First should be Ricky");
   }
 
   @Test
