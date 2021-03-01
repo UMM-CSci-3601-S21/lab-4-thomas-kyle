@@ -79,7 +79,7 @@ public class TodoControllerSpec {
     mockRes.resetAll();
 
     // Setup database
-    MongoCollection<Document> TodoDocuments = db.getCollection("Todos");
+    MongoCollection<Document> TodoDocuments = db.getCollection("todos");
     TodoDocuments.drop();
     List<Document> testTodos = new ArrayList<>();
     testTodos.add(
@@ -127,14 +127,14 @@ public class TodoControllerSpec {
   public void GetAllTodos() throws IOException {
 
     // Create our fake Javalin context
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/Todo");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
     TodoController.getTodos(ctx);
 
 
     assertEquals(200, mockRes.getStatus());
 
     String result = ctx.resultString();
-    assertEquals(db.getCollection("Todo").countDocuments(), JavalinJson.fromJson(result, Todo[].class).length);
+    assertEquals(db.getCollection("todos").countDocuments(), JavalinJson.fromJson(result, Todo[].class).length);
   }
 
 
