@@ -102,7 +102,7 @@ public class TodoControllerSpec {
       .append("category", "chores"));
 
     fredsId = new ObjectId();
-    Document sam =
+    Document fred =
       new Document()
         .append("_id", fredsId)
         .append("owner", "Fred")
@@ -112,7 +112,7 @@ public class TodoControllerSpec {
 
 
     TodoDocuments.insertMany(testTodos);
-    TodoDocuments.insertOne(sam);
+    TodoDocuments.insertOne(fred);
 
     TodoController = new TodoController(db);
   }
