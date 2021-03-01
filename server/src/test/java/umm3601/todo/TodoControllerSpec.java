@@ -127,14 +127,14 @@ public class TodoControllerSpec {
   public void GetAllTodos() throws IOException {
 
     // Create our fake Javalin context
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/Todos");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/Todo");
     TodoController.getTodos(ctx);
 
 
     assertEquals(200, mockRes.getStatus());
 
     String result = ctx.resultString();
-    assertEquals(db.getCollection("Todos").countDocuments(), JavalinJson.fromJson(result, Todo[].class).length);
+    assertEquals(db.getCollection("Todo").countDocuments(), JavalinJson.fromJson(result, Todo[].class).length);
   }
 
 
@@ -143,7 +143,7 @@ public class TodoControllerSpec {
 
     String testID = fredsId.toHexString();
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/Todos/:id", ImmutableMap.of("id", testID));
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos/:id", ImmutableMap.of("id", testID));
     TodoController.getTodo(ctx);
 
     assertEquals(200, mockRes.getStatus());
@@ -158,7 +158,7 @@ public class TodoControllerSpec {
   @Test
   public void GetTodoWithBadId() throws IOException {
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/Todos/:id", ImmutableMap.of("id", "bad"));
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos/:id", ImmutableMap.of("id", "bad"));
 
     assertThrows(BadRequestResponse.class, () -> {
       TodoController.getTodo(ctx);
@@ -168,7 +168,7 @@ public class TodoControllerSpec {
   @Test
   public void GetTodoWithNonexistentId() throws IOException {
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/Todos/:id", ImmutableMap.of("id", "58af3a600343927e48e87335"));
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos/:id", ImmutableMap.of("id", "58af3a600343927e48e87335"));
 
     assertThrows(NotFoundResponse.class, () -> {
       TodoController.getTodo(ctx);
