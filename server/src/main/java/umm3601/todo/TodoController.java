@@ -72,11 +72,6 @@ public class TodoController {
 
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
-    if (ctx.queryParamMap().containsKey(OWNER_KEY)) {
-      filters.add(regex(OWNER_KEY, Pattern.quote(ctx.queryParam(OWNER_KEY)), "i"));
-    }
-
-
     ctx.json(todoCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .into(new ArrayList<>()));
   }
