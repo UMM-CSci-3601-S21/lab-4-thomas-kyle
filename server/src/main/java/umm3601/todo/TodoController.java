@@ -29,7 +29,7 @@ import io.javalin.http.NotFoundResponse;
  */
 public class TodoController {
 
-  private static final String OWNER_KEY = "owner";
+  private static final String STATUS_KEY = "status";
 
   private final JacksonMongoCollection<Todo> todoCollection;
 
@@ -72,6 +72,16 @@ public class TodoController {
 
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
+    if (ctx.queryParamMap().containsKey(STATUS_KEY)) {
+      Boolean status;
+      if ("complete".equals((ctx.queryParam(STATUS_KEY)))){
+        status = true;
+      }
+      else{
+        status = false;
+      }
+      filters.add(eq(STATUS_KEY, status));
+  }
     ctx.json(todoCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .into(new ArrayList<>()));
   }
