@@ -16,6 +16,20 @@
           </mat-form-field>
         </div>
 
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <!-- Examples of filtering on the server -->
+
+          <mat-form-field class="input-field">
+            <mat-label>Status</mat-label>
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todosStatus" data-test="todosStatusSelect">
+              <mat-option>--</mat-option>
+              <mat-option value="complete">True</mat-option>
+              <mat-option value="incomplete">False</mat-option>
+            </mat-select>
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
+        </div>
+
         <br>
         <div fxLayout="row wrap" fxLayoutGap="10px">
           <label>View type: </label>

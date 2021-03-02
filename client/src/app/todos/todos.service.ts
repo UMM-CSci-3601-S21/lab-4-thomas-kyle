@@ -16,8 +16,15 @@ export class TodosService {
 
 
 
-  getTodos(): Observable<Todos[]> {
-    const httpParams: HttpParams = new HttpParams();
+  getTodos(filters?: { status?: string }): Observable<Todos[]> {
+    let httpParams: HttpParams = new HttpParams();
+
+    if (filters){
+      if (filters.status) {
+        httpParams = httpParams.set('status', filters.status);
+      }
+  }
+
 
     return this.httpClient.get<Todos[]>(this.todosUrl, {
       params: httpParams,

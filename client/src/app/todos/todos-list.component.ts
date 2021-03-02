@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Todos } from './todos';
 import { TodosService } from './todos.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-todos-list',
+  selector: 'app-todos-list-component',
   templateUrl: './todos-list.component.html',
   styleUrls: ['./todos-list.component.scss'],
   providers: []
@@ -35,7 +34,9 @@ export class TodosListComponent implements OnInit, OnDestroy {
 
   getTodosFromServer() {
     this.unsub();
-    this.getTodosSub = this.todosService.getTodos().subscribe(returnedTodos => {
+    this.getTodosSub = this.todosService.getTodos({
+      status: this.todosStatus
+    }).subscribe(returnedTodos => {
       this.serverFilteredTodos = returnedTodos;
       this.updateFilter();
     }, err => {

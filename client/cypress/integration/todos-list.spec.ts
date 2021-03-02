@@ -33,6 +33,19 @@ describe('Todos list', () => {
     );
   });
 
+  it('Should select a status and get results', () => {
+    // Filter for status 'viewer');
+    page.selectStatus('complete');
+
+    // Some of the todos should be listed
+    page.getTodosCards().should('have.lengthOf.above', 0);
+
+    // All of the todo card items that show should have the status we are looking for
+    page.getTodosCards().find('.todos-card-status').each($card => {
+      cy.wrap($card).should('have.text', 'true');
+    });
+  });
+
   it('Should change the view', () => {
     // Choose the view type "List"
     page.changeView('list');
