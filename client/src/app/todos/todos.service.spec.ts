@@ -143,6 +143,18 @@ describe('TodosService', () => {
         expect(todos.owner.indexOf(todosName)).toBeGreaterThanOrEqual(0);
       });
     });
+
+    it('filters by body', () => {
+      const todosBody = 'to';
+      const filteredTodos = todosService.filterTodos(testTodos, { body: todosBody });
+      // There should be two todos with an 'i' in their
+      // owner: Chris and Jamie.
+      expect(filteredTodos.length).toBe(2);
+      // Every returned todos owner should contain an 'i'.
+      filteredTodos.forEach(todos => {
+        expect(todos.owner.indexOf(todosBody)).toBeGreaterThanOrEqual(0);
+      });
+    });
   });
  });
 });
