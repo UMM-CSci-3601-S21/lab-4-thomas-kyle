@@ -104,6 +104,26 @@ describe('TodosService', () => {
     });
   });
 
+  it('getTodos() calls api/todos with filter parameter \'status\'', () => {
+
+    todosService.getTodos({ status: "complete" }).subscribe(
+      todos => expect(todos).toBe(testTodos)
+    );
+
+    // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+    const req = httpTestingController.expectOne(
+      (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('status')
+    );
+
+    // Check that the request made to that URL was a GET request.
+    expect(req.request.method).toEqual('GET');
+
+    // Check that the role parameter was 'admin'
+    expect(req.request.params.get('status')).toEqual('complete');
+
+    req.flush(testTodos);
+  });
+
   describe('filterTodos()', () => {
     /*
      * Since `filterTodos` actually filters "locally" (in
