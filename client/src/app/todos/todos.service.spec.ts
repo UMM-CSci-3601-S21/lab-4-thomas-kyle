@@ -106,7 +106,7 @@ describe('TodosService', () => {
 
   it('getTodos() calls api/todos with filter parameter \'status\'', () => {
 
-    todosService.getTodos({ status: "complete" }).subscribe(
+    todosService.getTodos({ status: 'complete' }).subscribe(
       todos => expect(todos).toBe(testTodos)
     );
 
@@ -118,7 +118,6 @@ describe('TodosService', () => {
     // Check that the request made to that URL was a GET request.
     expect(req.request.method).toEqual('GET');
 
-    // Check that the role parameter was 'admin'
     expect(req.request.params.get('status')).toEqual('complete');
 
     req.flush(testTodos);

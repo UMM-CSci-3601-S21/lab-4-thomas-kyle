@@ -41,8 +41,8 @@ describe('Todos list', () => {
     page.getTodosCards().should('have.lengthOf.above', 0);
 
     // All of the todo card items that show should have the status we are looking for
-    page.getTodosCards().each(el => {
-      cy.wrap(el).find('.todo-card-status').should('contain', 'true');
+    page.getTodosCards().find('.todos-card-status').each($card => {
+      cy.wrap($card).should('have.text', 'true');
     });
   });
 
