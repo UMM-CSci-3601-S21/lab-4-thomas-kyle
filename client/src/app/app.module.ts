@@ -33,7 +33,7 @@ import { UserCardComponent } from './users/user-card.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
 import { TodosCardComponent } from './todos/todos-card.component';
-import { TodosListComponent } from './todos/todos-list.component';
+import { TodosListComponent } from './todos/todos-list.component.spec';
 import { TodosProfileComponent } from './todos/todos-profile.component';
 import { TodosService } from './todos/todos.service';
 const MATERIAL_MODULES: any[] = [
