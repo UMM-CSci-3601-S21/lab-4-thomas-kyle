@@ -12,6 +12,12 @@ describe('Todos list', () => {
     page.getTodosTitle().should('have.text', 'Todos');
   });
 
+  it('Should show 300 todos in both card and list view', () => {
+    page.getTodosCards().should('have.length', 300);
+    page.changeView('list');
+    page.getTodosListItems().should('have.length', 300);
+  });
+
   it('Should type something in the owner filter and check that it returned correct elements', () => {
     // Filter for todos 'Fry'
     cy.get('#todos-owner-input').type('Fry');
