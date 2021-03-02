@@ -32,7 +32,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserCardComponent } from './users/user-card.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
-
+import { TodosCardComponent } from './todos/todos-card.component';
+import { TodosListComponent } from './todos/todos-list.component';
+import { TodosProfileComponent } from './todos/todos-profile.component';
+import { TodosService } from './todos/todos.service';
 const MATERIAL_MODULES: any[] = [
   MatListModule,
   MatButtonModule,
@@ -60,6 +63,9 @@ const MATERIAL_MODULES: any[] = [
     UserCardComponent,
     UserProfileComponent,
     AddUserComponent,
+    TodosCardComponent,
+    TodosListComponent,
+    TodosProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +79,8 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService
+    UserService,
+    TodosService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,72 @@
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+    <mat-card class="search-card">
+      <mat-card-title class="todos-list-title">Todos</mat-card-title>
+      <mat-card-content fxLayout="column" >
+
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <!-- Examples of filtering in Angular -->
+
+          <mat-form-field class="input-field">
+            <mat-label>Owner</mat-label>
+            <input matInput id="todos-owner-input" placeholder="Filter by owner"
+            [(ngModel)]="todosOwner" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <br>
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <label>View type: </label>
+          <mat-radio-group aria-label="View type" [(ngModel)]="viewType" data-test="viewTypeRadio">
+            <mat-radio-button value="card">Card</mat-radio-button>
+            <mat-radio-button value="list">List</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else TodosError" >
+    <!-- Switch between card and list view based on the viewType variable, set above in the mar-radio-group -->
+    <div [ngSwitch]="viewType">
+
+      <!-- Card grid view -->
+      <div *ngSwitchCase="'card'" fxLayout="row wrap" fxLayoutGap="10px" class="todos-cards-container">
+        <app-todos-card simple="true" *ngFor="let todos of filteredTodos" class="todos-card" [todos]="todos" fxFlex="1 1 280px"></app-todos-card>
+      </div>
+
+      <!-- List view -->
+      <mat-card *ngSwitchCase="'list'">
+        <mat-card-content>
+          <mat-nav-list class="todos-nav-list">
+            <h3 mat-subheader>Todos</h3>
+            <a mat-list-item *ngFor="let todos of this.filteredTodos" [routerLink]="['/todos', todos._id]" class="todos-list-item">
+              <h3 matLine class="todos-list-owner"> {{todos.owner}} </h3>
+              <p matLine class="todos-list-category"> {{todos.category}} </p>
+            </a>
+          </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>
+
+  <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+  <ng-template #TodosError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="todos-error">
+      <mat-error>
+        There was a problem loading the Todos. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again or start the server.
+      </mat-error>
+    </div>
+  </ng-template>
+
+</div>
