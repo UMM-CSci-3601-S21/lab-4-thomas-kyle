@@ -153,9 +153,31 @@ public class TodoControllerSpec {
     String result = ctx.resultString();
     Todo[] resultTodos = JavalinJson.fromJson(result, Todo[].class);
 
-    assertEquals(3, resultTodos.length); // There should be two todos returned
+    assertEquals(3, resultTodos.length); // There should be three todos returned
     for (Todo todo : resultTodos) {
       assertEquals(true, todo.status); // Every todo should be true
+    }
+  }
+
+  @Test
+  public void GetTodosByStatusFalse() throws IOException {
+
+    // Set the query string to test with
+    mockReq.setQueryString("status=incomplete");
+
+    // Create our fake Javalin context
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+
+    TodoController.getTodos(ctx);
+
+    assertEquals(200, mockRes.getStatus()); // The response status should be 200
+
+    String result = ctx.resultString();
+    Todo[] resultTodos = JavalinJson.fromJson(result, Todo[].class);
+
+    assertEquals(1, resultTodos.length); // There should be one todos returned
+    for (Todo todo : resultTodos) {
+      assertEquals(false, todo.status); // Every todo should be false
     }
   }
 
