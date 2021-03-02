@@ -14,6 +14,13 @@
             [(ngModel)]="todosOwner" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Body</mat-label>
+            <input matInput id="todos-body-input" placeholder="Filter by body"
+            [(ngModel)]="todosBody" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
         </div>
 
         <div fxLayout="row wrap" fxLayoutGap="10px">

@@ -147,12 +147,12 @@ describe('TodosService', () => {
     it('filters by body', () => {
       const todosBody = 'to';
       const filteredTodos = todosService.filterTodos(testTodos, { body: todosBody });
-      // There should be two todos with an 'i' in their
-      // owner: Chris and Jamie.
+      // There should be two todos with an 'sunt' in their
+      // body: Chris and Pam.
       expect(filteredTodos.length).toBe(2);
-      // Every returned todos owner should contain an 'i'.
+      // Every returned todos body should contain 'sunt'.
       filteredTodos.forEach(todos => {
-        expect(todos.owner.indexOf(todosBody)).toBeGreaterThanOrEqual(0);
+        expect(todos.body.indexOf(todosBody)).toBeGreaterThanOrEqual(0);
       });
     });
   });

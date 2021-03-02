@@ -37,14 +37,10 @@ describe('Todos list', () => {
     // Filter for todos 'sunt'
     cy.get('#todos-body-input').type('sunt');
 
-    // All of the todos cards should have the owner we are filtering by
-    page.getTodosCards().each(e => {
-      cy.wrap(e).find('.todos-card-body').should('have.text', 'sunt');
-    });
-
+    // All of the todos cards should have the body we are filtering by
     // (We check this two ways to show multiple ways to check this)
     page.getTodosCards().find('.todos-card-body').each($el =>
-      expect($el.text()).to.equal('sunt')
+      expect($el.text()).to.contain('sunt')
     );
   });
 
