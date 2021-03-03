@@ -30,6 +30,7 @@ import io.javalin.http.NotFoundResponse;
 public class TodoController {
 
   private static final String STATUS_KEY = "status";
+  private static final String CATEGORY_KEY = "category";
 
   private final JacksonMongoCollection<Todo> todoCollection;
 
@@ -81,6 +82,10 @@ public class TodoController {
         status = false;
       }
       filters.add(eq(STATUS_KEY, status));
+    }
+
+  if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
+    filters.add(regex(CATEGORY_KEY,  Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
   }
     ctx.json(todoCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .into(new ArrayList<>()));
