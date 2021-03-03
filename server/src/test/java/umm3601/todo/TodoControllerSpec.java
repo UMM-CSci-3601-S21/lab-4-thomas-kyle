@@ -289,4 +289,69 @@ public class TodoControllerSpec {
     assertEquals("Test the tests.", addedTodo.getString("body"));
     assertEquals("software design", addedTodo.getString("category"));
   }
+
+  @Test
+  public void AddInvalidOwnerTodo() throws IOException {
+    String testNewTodo = "{"
+      + "\"status\": true,"
+      + "\"body\": \"testers are cool\","
+      + "\"category\": \"tests\","
+      + "}";
+    mockReq.setBodyContent(testNewTodo);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      TodoController.addNewTodo(ctx);
+    });
+  }
+
+  @Test
+  public void AddInvalidBodyTodo() throws IOException {
+    String testNewTodo = "{"
+    + "\"owner\": \"owner\","
+    + "\"status\": true,"
+    + "\"category\": \"tests\","
+    + "}";
+    mockReq.setBodyContent(testNewTodo);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      TodoController.addNewTodo(ctx);
+    });
+  }
+
+  @Test
+  public void AddInvalidCategoryTodo() throws IOException {
+    String testNewTodo = "{"
+    + "\"owner\": \"owner\","
+    + "\"status\": true,"
+    + "\"body\": \"testers are cool\","
+      + "}";
+    mockReq.setBodyContent(testNewTodo);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      TodoController.addNewTodo(ctx);
+    });
+  }
+
+  @Test
+  public void AddInvalidStatusTodo() throws IOException {
+    String testNewTodo = "{"
+    + "\"owner\": \"owner\","
+    + "\"status\": \"true\","
+    + "\"body\": \"testers are cool\","
+    + "\"category\": \"tests\","
+      + "}";
+    mockReq.setBodyContent(testNewTodo);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      TodoController.addNewTodo(ctx);
+    });
+  }
 }
