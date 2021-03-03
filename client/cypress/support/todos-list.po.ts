@@ -25,8 +25,8 @@ export class TodosListPage {
    *
    * @param card The Todos card
    */
-  clickViewProfile(card: Cypress.Chainable<JQuery<HTMLElement>>) {
-    return card.find<HTMLButtonElement>('[data-test=viewProfileButton]').click();
+  clickViewInfo(card: Cypress.Chainable<JQuery<HTMLElement>>) {
+    return card.find<HTMLButtonElement>('[data-test=viewInfoButton]').click();
   }
 
   /**

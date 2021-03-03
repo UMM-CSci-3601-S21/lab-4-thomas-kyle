@@ -99,22 +99,22 @@ describe('Todos list', () => {
     page.getTodosListItems().should('not.exist');
   });
 
-  it('Should click view profile on a todos and go to the right URL', () => {
+  it('Should click view info on a todos and go to the right URL', () => {
     page.getTodosCards().first().then((card) => {
       const firstTodosOwner = card.find('.todos-card-owner').text();
       const firstTodosStatus = card.find('.todos-card-status').text();
       const firstTodosBody = card.find('.todos-card-body').text();
       const firstTodosCategory = card.find('.todos-card-category').text();
 
-      // When the view profile button on the first todos card is clicked, the URL should have a valid mongo ID
-      page.clickViewProfile(page.getTodosCards().first());
+      // When the view info button on the first todos card is clicked, the URL should have a valid mongo ID
+      page.clickViewInfo(page.getTodosCards().first());
 
       // The URL should contain '/todos/' (note the ending slash) and '/todos/' should be followed by a mongo ID
       cy.url()
         .should('contain', '/todos/')
         .should('match', /.*\/todos\/[0-9a-fA-F]{24}$/);
 
-      // On this profile page we were sent to, the owner and category should be correct
+      // On this info page we were sent to, the owner and category should be correct
       cy.get('.todos-card-owner').first().should('have.text', firstTodosOwner);
       cy.get('.todos-card-status').first().should('have.text', firstTodosStatus);
       cy.get('.todos-card-body').first().should('have.text', firstTodosBody);
