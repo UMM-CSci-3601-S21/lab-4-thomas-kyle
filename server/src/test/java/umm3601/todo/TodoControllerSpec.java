@@ -254,4 +254,56 @@ public class TodoControllerSpec {
       TodoController.getTodo(ctx);
     });
   }
+
+  @Test
+  public void AddTodo() throws IOException {
+
+    String testNewTodo = "{"
+      + "\"owner\": \"Test Todo\","
+      + "\"status\": true,"
+      + "\"body\": \"Test the tests.\","
+      + "\"category\": \"software design\","
+      + "}";
+
+    mockReq.setBodyContent(testNewTodo);
+    mockReq.setMethod("POST");
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+
+    TodoController.addNewTodo(ctx);
+
+    assertEquals(201, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    String id = jsonMapper.readValue(result, ObjectNode.class).get("id").asText();
+    assertNotEquals("", id);
+    System.out.println(id);
+
+    assertEquals(1, db.getCollection("todos").countDocuments(eq("_id", new ObjectId(id))));
+
+    //verify todo was added to the database and the correct ID
+    Document addedTodo = db.getCollection("todos").find(eq("_id", new ObjectId(id))).first();
+    assertNotNull(addedTodo);
+    assertEquals("Test Todo", addedTodo.getString("owner"));
+    assertEquals(true, addedTodo.getInteger("status"));
+    assertEquals("Test the tests.", addedTodo.getString("body"));
+    assertEquals("software design", addedTodo.getString("category"));
+  }
+
+  @Test
+  public void DeleteTodo() throws IOException {
+
+    String testID = fredsId.toHexString();
+
+    // Todo exists before deletion
+    assertEquals(1, db.getCollection("todos").countDocuments(eq("_id", new ObjectId(testID))));
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos/:id", ImmutableMap.of("id", testID));
+    TodoController.deleteTodo(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    // Todo is no longer in the database
+    assertEquals(0, db.getCollection("todos").countDocuments(eq("_id", new ObjectId(testID))));
+  }
 }
