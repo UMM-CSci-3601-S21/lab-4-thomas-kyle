@@ -262,7 +262,7 @@ public class TodoControllerSpec {
       + "\"owner\": \"Test Todo\","
       + "\"status\": true,"
       + "\"body\": \"Test the tests.\","
-      + "\"category\": \"software design\","
+      + "\"category\": \"software design\""
       + "}";
 
     mockReq.setBodyContent(testNewTodo);

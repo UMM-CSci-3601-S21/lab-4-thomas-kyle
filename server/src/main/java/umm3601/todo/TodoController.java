@@ -31,6 +31,7 @@ public class TodoController {
 
   private static final String STATUS_KEY = "status";
   private static final String CATEGORY_KEY = "category";
+  public static final Boolean booleanRegex = true;
 
   private final JacksonMongoCollection<Todo> todoCollection;
 
@@ -90,5 +91,23 @@ public class TodoController {
 
     ctx.json(todoCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .into(new ArrayList<>()));
+  }
+
+  /**
+   * Get a JSON response with a list of all the todos.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void addNewTodo(Context ctx) {
+    Todo newTodo = ctx.bodyValidator(Todo.class)
+      .check(tod -> tod.owner != null && tod.owner.length() > 0) //Verify that the todo has a owner that is not blank
+      .check(tod -> (tod.status == (true)) || (tod.status == (false))) // Verify that the provided status is a valid status
+      .check(tod -> tod.body != null && tod.body.length() > 0) // Verify that the provided body is > 0
+      .check(tod -> tod.category != null && tod.category.length() > 0) // Verify that the todo has a category that is not blank
+      .get();
+
+    todoCollection.insertOne(newTodo);
+    ctx.status(201);
+    ctx.json(ImmutableMap.of("id", newTodo._id));
   }
 }
