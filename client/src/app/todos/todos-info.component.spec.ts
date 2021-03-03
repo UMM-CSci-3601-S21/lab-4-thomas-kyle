@@ -6,12 +6,12 @@ import { ActivatedRouteStub } from '../../testing/activated-route-stub';
 import { MockTodosService } from '../../testing/todos.service.mock';
 import { Todos } from './todos';
 import { TodosCardComponent } from './todos-card.component';
-import { TodosProfileComponent } from './todos-profile.component';
+import { TodosInfoComponent } from './todos-info.component';
 import { TodosService } from './todos.service';
 
-describe('TodosProfileComponent', () => {
-  let component: TodosProfileComponent;
-  let fixture: ComponentFixture<TodosProfileComponent>;
+describe('TodosInfoComponent', () => {
+  let component: TodosInfoComponent;
+  let fixture: ComponentFixture<TodosInfoComponent>;
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
   beforeEach(waitForAsync(() => {
@@ -20,7 +20,7 @@ describe('TodosProfileComponent', () => {
         RouterTestingModule,
         MatCardModule
       ],
-      declarations: [TodosProfileComponent, TodosCardComponent],
+      declarations: [TodosInfoComponent, TodosCardComponent],
       providers: [
         { provide: TodosService, useValue: new MockTodosService() },
         { provide: ActivatedRoute, useValue: activatedRoute }
@@ -30,7 +30,7 @@ describe('TodosProfileComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TodosProfileComponent);
+    fixture = TestBed.createComponent(TodosInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -39,10 +39,10 @@ describe('TodosProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to a specific todos profile', () => {
+  it('should navigate to a specific todos info', () => {
     const expectedTodos: Todos = MockTodosService.testTodos[0];
     // Setting this should cause anyone subscribing to the paramMap
-    // to update. Our `TodosProfileComponent` subscribes to that, so
+    // to update. Our `TodosInfoComponent` subscribes to that, so
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedTodos._id });
 
@@ -53,13 +53,13 @@ describe('TodosProfileComponent', () => {
   it('should navigate to correct todos when the id parameter changes', () => {
     let expectedTodos: Todos = MockTodosService.testTodos[0];
     // Setting this should cause anyone subscribing to the paramMap
-    // to update. Our `TodosProfileComponent` subscribes to that, so
+    // to update. Our `TodosInfoComponent` subscribes to that, so
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedTodos._id });
 
     expect(component.id).toEqual(expectedTodos._id);
 
-    // Changing the paramMap should update the displayed todos profile.
+    // Changing the paramMap should update the displayed todos info.
     expectedTodos = MockTodosService.testTodos[1];
     activatedRoute.setParamMap({ id: expectedTodos._id });
 

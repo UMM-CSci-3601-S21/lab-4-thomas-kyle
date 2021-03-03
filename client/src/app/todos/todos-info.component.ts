@@ -5,11 +5,11 @@ import { TodosService } from './todos.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-todos-profile',
-  templateUrl: './todos-profile.component.html',
-  styleUrls: ['./todos-profile.component.scss']
+  selector: 'app-todos-info',
+  templateUrl: './todos-info.component.html',
+  styleUrls: ['./todos-info.component.scss']
 })
-export class TodosProfileComponent implements OnInit, OnDestroy {
+export class TodosInfoComponent implements OnInit, OnDestroy {
   todos: Todos;
   id: string;
   getTodoSub: Subscription;
