@@ -45,7 +45,7 @@ export class TodosListComponent implements OnInit, OnDestroy {
   }
   public updateFilter() {
     this.filteredTodos = this.todosService.filterTodos(
-      this.serverFilteredTodos, { owner: this.todosOwner });
+      this.serverFilteredTodos, { owner: this.todosOwner, body: this.todosBody});
   }
 
   /**

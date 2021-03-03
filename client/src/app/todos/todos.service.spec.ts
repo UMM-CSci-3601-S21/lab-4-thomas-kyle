@@ -143,6 +143,18 @@ describe('TodosService', () => {
         expect(todos.owner.indexOf(todosName)).toBeGreaterThanOrEqual(0);
       });
     });
+
+    it('filters by body', () => {
+      const todosBody = 'to';
+      const filteredTodos = todosService.filterTodos(testTodos, { body: todosBody });
+      // There should be two todos with an 'sunt' in their
+      // body: Chris and Pam.
+      expect(filteredTodos.length).toBe(2);
+      // Every returned todos body should contain 'sunt'.
+      filteredTodos.forEach(todos => {
+        expect(todos.body.indexOf(todosBody)).toBeGreaterThanOrEqual(0);
+      });
+    });
   });
  });
 });

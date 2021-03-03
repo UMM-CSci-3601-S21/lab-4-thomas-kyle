@@ -33,6 +33,17 @@ describe('Todos list', () => {
     );
   });
 
+  it('Should type something in the body filter and check that it returned correct elements', () => {
+    // Filter for todos 'sunt'
+    cy.get('#todos-body-input').type('sunt');
+
+    // All of the todos cards should have the body we are filtering by
+    // (We check this two ways to show multiple ways to check this)
+    page.getTodosCards().find('.todos-card-body').each($el =>
+      expect($el.text()).to.contain('sunt')
+    );
+  });
+
   it('Should select a status and get results', () => {
     // Filter for status 'viewer');
     page.selectStatus('complete');
