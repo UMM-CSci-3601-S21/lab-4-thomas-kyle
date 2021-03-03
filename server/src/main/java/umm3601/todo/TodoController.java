@@ -84,9 +84,10 @@ public class TodoController {
       filters.add(eq(STATUS_KEY, status));
     }
 
-  if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
-    filters.add(regex(CATEGORY_KEY,  Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
-  }
+    if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
+      filters.add(regex(CATEGORY_KEY,  Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
+    }
+
     ctx.json(todoCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .into(new ArrayList<>()));
   }
