@@ -182,6 +182,24 @@ public class TodoControllerSpec {
   }
 
   @Test
+  public void GetTodosByCategory() throws IOException {
+
+    mockReq.setQueryString("category=intros");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+    TodoController.getTodos(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+    String result = ctx.resultString();
+
+    Todo[] resultTodos = JavalinJson.fromJson(result, Todo[].class);
+
+    assertEquals(2, resultTodos.length); // There should be two todos returned
+    for (Todo todo : resultTodos) {
+      assertEquals("intros", todo.category);
+    }
+  }
+
+  @Test
   public void GetTodoWithExistentId() throws IOException {
 
     String testID = fredsId.toHexString();
