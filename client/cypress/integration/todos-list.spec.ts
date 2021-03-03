@@ -44,6 +44,30 @@ describe('Todos list', () => {
     );
   });
 
+  it('Should type something in the category filter and check that it returned correct elements', () => {
+    // Filter for category 'homework'
+    cy.get('[data-test=todosCategoryInput]').type('homework');
+
+    page.getTodosCards().should('have.lengthOf.above', 0);
+
+    // All of the todos cards should have the category we are filtering by
+    page.getTodosCards().find('.todos-card-category').each(card => {
+      cy.wrap(card).should('have.text', 'homework');
+    });
+  });
+
+  it('Should type something partial in the category filter and check that it returned correct elements', () => {
+    // Filter for category 'homework'
+    cy.get('[data-test=todosCategoryInput]').type('homewo');
+
+    page.getTodosCards().should('have.lengthOf.above', 0);
+
+    // All of the todos cards should have the category we are filtering by
+    page.getTodosCards().find('.todos-card-category').each(card => {
+      cy.wrap(card).should('have.text', 'homework');
+    });
+  });
+
   it('Should select a status and get results', () => {
     // Filter for status 'viewer');
     page.selectStatus('complete');

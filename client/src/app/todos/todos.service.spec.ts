@@ -110,7 +110,7 @@ describe('TodosService', () => {
       todos => expect(todos).toBe(testTodos)
     );
 
-    // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+    // Specify that (exactly) one request will be made to the specified URL with the category parameter.
     const req = httpTestingController.expectOne(
       (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('status')
     );
@@ -119,6 +119,26 @@ describe('TodosService', () => {
     expect(req.request.method).toEqual('GET');
 
     expect(req.request.params.get('status')).toEqual('complete');
+
+    req.flush(testTodos);
+  });
+
+  it('getTodos() calls api/todos with filter parameter \'workout\'', () => {
+
+    todosService.getTodos({ category: 'workout' }).subscribe(
+      todos => expect(todos).toBe(testTodos)
+    );
+
+    // Specify that (exactly) one request will be made to the specified URL with the category parameter.
+    const req = httpTestingController.expectOne(
+      (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('category')
+    );
+
+    // Check that the request made to that URL was a GET request.
+    expect(req.request.method).toEqual('GET');
+
+    // Check that the category parameter was 'workout'
+    expect(req.request.params.get('category')).toEqual('workout');
 
     req.flush(testTodos);
   });
