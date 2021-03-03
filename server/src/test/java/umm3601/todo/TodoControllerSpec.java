@@ -91,7 +91,7 @@ public class TodoControllerSpec {
     testTodos.add(
       new Document()
       .append("owner", "Sally")
-      .append("status", true)
+      .append("status", false)
       .append("body", "Hello I am Sally")
       .append("category", "intros"));
     testTodos.add(
@@ -106,7 +106,7 @@ public class TodoControllerSpec {
       new Document()
         .append("_id", fredsId)
         .append("owner", "Fred")
-        .append("status", true)
+        .append("status", false)
         .append("body", "Hey it's Fred!!!")
         .append("category", "youtube");
 
@@ -153,7 +153,7 @@ public class TodoControllerSpec {
     String result = ctx.resultString();
     Todo[] resultTodos = JavalinJson.fromJson(result, Todo[].class);
 
-    assertEquals(3, resultTodos.length); // There should be two todos returned
+    assertEquals(1, resultTodos.length); // There should be two todos returned
     for (Todo todo : resultTodos) {
       assertEquals(true, todo.status); // Every todo should be true
     }
@@ -175,7 +175,7 @@ public class TodoControllerSpec {
     String result = ctx.resultString();
     Todo[] resultTodos = JavalinJson.fromJson(result, Todo[].class);
 
-    assertEquals(1, resultTodos.length); // There should be one todos returned
+    assertEquals(3, resultTodos.length); // There should be one todos returned
     for (Todo todo : resultTodos) {
       assertEquals(false, todo.status); // Every todo should be false
     }
@@ -195,6 +195,25 @@ public class TodoControllerSpec {
 
     assertEquals(2, resultTodos.length); // There should be two todos returned
     for (Todo todo : resultTodos) {
+      assertEquals("intros", todo.category);
+    }
+  }
+
+  @Test
+  public void GetTodosMultipleFilters() throws IOException {
+
+    mockReq.setQueryString("category=intros&status=false");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/todos");
+    TodoController.getTodos(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+    String result = ctx.resultString();
+
+    Todo[] resultTodos = JavalinJson.fromJson(result, Todo[].class);
+
+    assertEquals(1, resultTodos.length); // There should be two todos returned
+    for (Todo todo : resultTodos) {
+      assertEquals("Sally", todo.owner);
       assertEquals("intros", todo.category);
     }
   }
