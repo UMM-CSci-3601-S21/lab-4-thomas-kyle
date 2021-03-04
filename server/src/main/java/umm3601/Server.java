@@ -79,6 +79,10 @@ public class Server {
     // Get the specified todo
     server.get("/api/todos/:id", todoController::getTodo);
 
+    // Add new user with the user info being in the JSON body
+    // of the HTTP request
+    server.post("/api/todos", todoController::addNewTodo);
+
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
       ctx.json(e); // you probably want to remove this in production
