@@ -35,7 +35,7 @@ is potentially helpful and contributed to the shaping of this example -->
 
           <mat-form-field>
             <mat-label>Body</mat-label>
-            <input matInput placeholder="Body" formControlBody="body"
+            <input matInput placeholder="Body" formControlName="body"
                   required>
             <mat-error *ngFor="let validation of addTodosValidationMessages.body">
               <mat-error class="error-message" data-test="bodyError"
@@ -46,14 +46,13 @@ is potentially helpful and contributed to the shaping of this example -->
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Role</mat-label>
-            <mat-select required formControlOwner="role">
-              <mat-option value="admin">Admin</mat-option>
-              <mat-option value="editor">Editor</mat-option>
-              <mat-option value="viewer">Viewer</mat-option>
+            <mat-label>Status</mat-label>
+            <mat-select required formControlName="status">
+              <mat-option value="true">True</mat-option>
+              <mat-option value="false">False</mat-option>
             </mat-select>
-            <mat-error *ngIf="addTodosForm.get('role').hasError('required')">You must make a selection</mat-error>
-            <mat-error *ngIf="addTodosForm.get('role').hasError('pattern') && !addTodosForm.get('role').hasError('required')">
+            <mat-error *ngIf="addTodosForm.get('status').hasError('required')">You must make a selection</mat-error>
+            <mat-error *ngIf="addTodosForm.get('status').hasError('pattern') && !addTodosForm.get('status').hasError('required')">
               Your selection is invalid
             </mat-error>
           </mat-form-field>

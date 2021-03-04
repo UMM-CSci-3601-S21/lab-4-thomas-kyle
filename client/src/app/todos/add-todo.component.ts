@@ -6,7 +6,7 @@ import { Todos } from './todos';
 import { TodosService } from './todos.service';
 
 @Component({
-  selector: 'app-add-todos',
+  selector: 'app-add-todo',
   templateUrl: './add-todo.component.html',
   styleUrls: ['./add-todo.component.scss']
 })
@@ -25,15 +25,15 @@ export class AddTodosComponent implements OnInit {
       {type: 'maxlength', message: 'Owner cannot be more than 50 characters long'}
     ],
 
-    body: [
-      {type: 'required', message: 'Body is required'},
-      {type: 'minlength', message: 'Body must be at least 5 characters long'}
-    ],
-
     category: [
       {type: 'required', message: 'Category is required'},
       {type: 'minlength', message: 'Category must be at least 2 characters long'},
       {type: 'maxlength', message: 'Category cannot be more than 50 characters long'}
+    ],
+
+    body: [
+      {type: 'required', message: 'Body is required'},
+      {type: 'minlength', message: 'Body must be at least 5 characters long'}
     ],
 
     status: [
@@ -79,7 +79,7 @@ export class AddTodosComponent implements OnInit {
         Validators.minLength(5)
       ])),
 
-      status: new FormControl('false', Validators.compose([
+      status: new FormControl('true', Validators.compose([
         Validators.required,
         Validators.pattern('^(true|false)$'),
       ])),
@@ -95,7 +95,7 @@ export class AddTodosComponent implements OnInit {
   submitForm() {
     this.todosService.addTodo(this.addTodosForm.value).subscribe(newID => {
       this.snackBar.open('Added Todos ' + this.addTodosForm.value.owner, null, {
-        duration: 2000,
+        duration: 7000,
       });
       this.router.navigate(['/todos/', newID]);
     }, err => {
