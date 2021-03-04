@@ -33,7 +33,7 @@ export class UserListComponent implements OnInit, OnDestroy  {
 
   }
 
-  getUsersFromServer(): void {
+  getUsersFromServer() {
     this.unsub();
     this.getUsersSub = this.userService.getUsers({
       role: this.userRole,
@@ -46,7 +46,7 @@ export class UserListComponent implements OnInit, OnDestroy  {
     });
   }
 
-  public updateFilter(): void {
+  public updateFilter() {
     this.filteredUsers = this.userService.filterUsers(
       this.serverFilteredUsers, { name: this.userName, company: this.userCompany });
   }
