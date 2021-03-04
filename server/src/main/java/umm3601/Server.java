@@ -72,14 +72,13 @@ public class Server {
     // of the HTTP request
     server.post("/api/users", userController::addNewUser);
 
-
     // List todos, filtered using query parameters
     server.get("/api/todos", todoController::getTodos);
 
     // Get the specified todo
     server.get("/api/todos/:id", todoController::getTodo);
 
-    // Add new user with the user info being in the JSON body
+    // Add new todo with the todo info being in the JSON body
     // of the HTTP request
     server.post("/api/todos", todoController::addNewTodo);
 
